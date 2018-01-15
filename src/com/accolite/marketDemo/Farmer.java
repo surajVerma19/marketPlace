@@ -11,14 +11,14 @@ public class Farmer implements Runnable{
 	public void run()
 	{
 		long now = System.currentTimeMillis();
-		long time = now - System.currentTimeMillis();
+		long time = System.currentTimeMillis() - now;
 		int fruit;
 		while(time < 2*60*1000) // 2 minutes
 		{
 			waitLittle();
 			fruit = getFruit();
 			Market.sell(fruit);//should have static member
-			time = now - System.currentTimeMillis();
+			time = System.currentTimeMillis() - now;
 		}
 	}
 	
