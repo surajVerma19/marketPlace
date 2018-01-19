@@ -4,35 +4,37 @@ import java.util.*;
 
 public class Consumer implements Runnable{
 	Random random;
-	Consumer()
-	{
+	public Consumer()
+	{//consumer will be distinguish or identify on the bases of the fruits they want to buy
+		//so we generate consumers who wants to buy random fruits
 		random = new Random();
 	}
 	public void run()
 	{
-		long now = System.currentTimeMillis();
-		long time =  System.currentTimeMillis() - now;
+		int minutes = 1;	// number of minutes to run the code
+		long now = System.currentTimeMillis();	// number of minutes will be count from here
+		long timeDiff =  System.currentTimeMillis() - now;	//calculate the time elapsed after 'now'
 		int consumer;
-		while(time < 2*60*1000) // 2 minutes
+		while(timeDiff < minutes*60*1000) //  minutes in milliseconds
 		{
-			waitLittle();
+			waitLittle();	//control the generation of consumers
 			consumer = getConsumer();
-			Market.getFruit(consumer);//should have static member
-			time = System.currentTimeMillis() - now;
+			Market.getFruit(consumer);	//go to market to get desired fruit
+			timeDiff = System.currentTimeMillis() - now;	//recalculate the time elapsed after 'now'
 		}
 	}
 	
-	private int getConsumer()
-	{
-		return random.nextInt(4);
+	public int getConsumer()
+	{//a consumer will be generate who wants a random fruit
+		return random.nextInt(4);	
 	}
-	void waitLittle()
+	public void waitLittle()
 	{
 		try {
-			Thread.sleep(random.nextInt(1000)+100);
+			Thread.sleep(random.nextInt(1000) + 100L);	//randomly wait from 100 to 1100 millisecond
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			Thread.currentThread().interrupt();
 		}
 	}
 
